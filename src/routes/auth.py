@@ -42,7 +42,7 @@ async def login(login_data: loginUser):
     
         if exist_user and bcrypt.verify(login_data.password, exist_user["password"]):
                 token = getToken({"username": exist_user["username"], "email": exist_user["email"]})
-                return JSONResponse(content={"message": "Inicio de sesión exitoso", "token": token})
+                return JSONResponse(content={"info": "Inicio de sesión exitoso", "token": token})
         else:
             return JSONResponse(content={"message": "Invalid credentials"})
     except Exception as ex:

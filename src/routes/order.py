@@ -1,16 +1,22 @@
-from fastapi import APIRouter, Header
+from fastapi import APIRouter, Header, UploadFile, File
 from fastapi.responses import JSONResponse
+# from gridfs import GridFS
 from handlers.token import validateToken
 from database.db import collection, add_order_to_user, allOrders, remove_order_from_current_orders, update_order, delete_order
 
 orders = APIRouter()
 
 @orders.post("/create")
-async def create_order(order_data: dict, Authorization: str = Header(None)):
+async def create_order(order_data: dict ,Authorization: str = Header(None)):
+    # parameter of file 'pdf_file: UploadFile = File(None)'
     try:
         # Verificar la autenticación del usuario utilizando el token Authorization
         token = Authorization.split(" ")[1]
         user_data = validateToken(token)  # Suponiendo que validateToken devuelve los datos del usuario
+        
+        # if pdf_file:
+        #     file_id = fs.put(pdf_file.file, filename = pdf_file.filename)
+        #     order_data["pdf_file_id"] = str(file_id)
 
         # Agregar la orden a la colección del usuario en "current_orders"
         user = await collection.find_one({"username": user_data["username"]})
@@ -55,3 +61,4 @@ async def delete_global_order(order_id: str):
     except Exception as ex:
         print(f"Error al eliminar la orden: {str(ex)}")
         return JSONResponse(content={"message": "Error al eliminar la orden"}, status_code=500)
+    

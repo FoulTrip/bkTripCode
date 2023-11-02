@@ -20,7 +20,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-    
+
+@app.get("/")
+def home():
+    return {"message": "TripCode"}
+
 app.include_router(auth_route, prefix="/auth")
 app.include_router(orders, prefix="/order")
 

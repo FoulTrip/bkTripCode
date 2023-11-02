@@ -3,6 +3,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from handlers.token import validateToken
 from os import getenv
 from bson import ObjectId
+# from gridfs import GridFS
 
 
 client = AsyncIOMotorClient(getenv("MONGO_URI"))
