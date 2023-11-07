@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from routes.auth import auth_route
 from routes.order import orders
+from routes.current_orders import current_orders
 from dotenv import load_dotenv
 
 
@@ -27,5 +28,6 @@ def home():
 
 app.include_router(auth_route, prefix="/auth")
 app.include_router(orders, prefix="/order")
+app.include_router(current_orders, prefix="/order")
 
 load_dotenv()
