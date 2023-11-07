@@ -1,6 +1,11 @@
 version: '4'
 services:
   fast-api:
-    build: ./src
+    build: .
     ports:
       - "5002:80"
+    env_file: ./.env
+  db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
